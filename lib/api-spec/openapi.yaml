@@ -3,20 +3,26 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: VRPRDL Solver API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: instances
+    description: VRPRDL instance generation
+  - name: solver
+    description: Tabu Search solver operations
+  - name: algorithms
+    description: Algorithm explanation endpoints
+
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +30,94 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /instances/generate:
+    post:
+      operationId: generateInstance
+      tags: [instances]
+      summary: Generate a VRPRDL benchmark instance
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InstanceConfig"
+      responses:
+        "200":
+          description: Generated instance
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/VrprdlInstance"
+
+  /solver/run:
+    post:
+      operationId: runSolver
+      tags: [solver]
+      summary: Submit a Tabu Search solver job
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/SolverRequest"
+      responses:
+        "200":
+          description: Solver job created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SolverJob"
+
+  /solver/result/{jobId}:
+    get:
+      operationId: getSolverResult
+      tags: [solver]
+      summary: Get solver result by job ID
+      parameters:
+        - name: jobId
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Solver result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SolverJob"
+        "404":
+          description: Job not found
+
+  /solver/jobs:
+    get:
+      operationId: listSolverJobs
+      tags: [solver]
+      summary: List all solver jobs
+      responses:
+        "200":
+          description: List of jobs
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SolverJob"
+
+  /algorithms/info:
+    get:
+      operationId: getAlgorithmsInfo
+      tags: [algorithms]
+      summary: Get info about algorithms used
+      responses:
+        "200":
+          description: Algorithm descriptions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AlgorithmsInfo"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +128,302 @@ components:
       required:
         - status
 
+    InstanceConfig:
+      type: object
+      properties:
+        instanceType:
+          type: string
+          enum: [general, realistic]
+        nCustomers:
+          type: integer
+          minimum: 5
+          maximum: 100
+        seed:
+          type: integer
+        vehicleCapacity:
+          type: integer
+        planningHorizon:
+          type: number
+        maxLocationsPerCustomer:
+          type: integer
+        maxRoamingDistance:
+          type: number
+      required:
+        - instanceType
+        - nCustomers
+
+    LocationEntry:
+      type: object
+      properties:
+        location_id:
+          type: string
+        type:
+          type: string
+        x:
+          type: number
+        y:
+          type: number
+        time_window:
+          type: array
+          items:
+            type: number
+          minItems: 2
+          maxItems: 2
+      required:
+        - location_id
+        - x
+        - y
+        - time_window
+
+    Customer:
+      type: object
+      properties:
+        customer_id:
+          type: integer
+        demand:
+          type: integer
+        customer_type:
+          type: ["string", "null"]
+        locations:
+          type: array
+          items:
+            $ref: "#/components/schemas/LocationEntry"
+      required:
+        - customer_id
+        - demand
+        - locations
+
+    DepotInfo:
+      type: object
+      properties:
+        location_id:
+          type: string
+        x:
+          type: number
+        y:
+          type: number
+      required:
+        - location_id
+        - x
+        - y
+
+    InstanceMetadata:
+      type: object
+      properties:
+        seed:
+          type: integer
+        n_customers:
+          type: integer
+        planning_horizon:
+          type: number
+        vehicle_capacity:
+          type: integer
+        total_demand:
+          type: integer
+        total_locations:
+          type: integer
+      required:
+        - n_customers
+        - planning_horizon
+        - vehicle_capacity
+        - total_demand
+        - total_locations
+
+    VrprdlInstance:
+      type: object
+      properties:
+        instance_type:
+          type: string
+        planning_horizon:
+          type: number
+        vehicle_capacity:
+          type: integer
+        depot:
+          $ref: "#/components/schemas/DepotInfo"
+        customers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Customer"
+        metadata:
+          $ref: "#/components/schemas/InstanceMetadata"
+      required:
+        - instance_type
+        - planning_horizon
+        - vehicle_capacity
+        - depot
+        - customers
+        - metadata
+
+    SolverConfig:
+      type: object
+      properties:
+        maxIter:
+          type: integer
+          minimum: 10
+          maximum: 2000
+        tabuTenure:
+          type: integer
+          minimum: 5
+          maximum: 100
+        maxNoImprove:
+          type: integer
+          minimum: 10
+          maximum: 500
+      required:
+        - maxIter
+        - tabuTenure
+        - maxNoImprove
+
+    SolverRequest:
+      type: object
+      properties:
+        instance:
+          $ref: "#/components/schemas/VrprdlInstance"
+        config:
+          $ref: "#/components/schemas/SolverConfig"
+      required:
+        - instance
+        - config
+
+    DeliveryAssignment:
+      type: object
+      properties:
+        customer_id:
+          type: integer
+        location_id:
+          type: string
+        arrival_time:
+          type: number
+        x:
+          type: number
+        y:
+          type: number
+      required:
+        - customer_id
+        - location_id
+        - arrival_time
+        - x
+        - y
+
+    ConvergencePoint:
+      type: object
+      properties:
+        iteration:
+          type: integer
+        cost:
+          type: number
+        best_cost:
+          type: number
+      required:
+        - iteration
+        - cost
+        - best_cost
+
+    SolverResult:
+      type: object
+      properties:
+        best_cost:
+          type: number
+        best_sequence:
+          type: array
+          items:
+            type: integer
+        assignments:
+          type: array
+          items:
+            $ref: "#/components/schemas/DeliveryAssignment"
+        convergence_history:
+          type: array
+          items:
+            $ref: "#/components/schemas/ConvergencePoint"
+        iterations_run:
+          type: integer
+        runtime_ms:
+          type: number
+        initial_cost:
+          type: number
+        improvement_pct:
+          type: number
+      required:
+        - best_cost
+        - best_sequence
+        - assignments
+        - convergence_history
+        - iterations_run
+        - runtime_ms
+        - initial_cost
+        - improvement_pct
+
+    SolverJob:
+      type: object
+      properties:
+        job_id:
+          type: string
+        status:
+          type: string
+          enum: [pending, running, completed, failed]
+        created_at:
+          type: string
+        completed_at:
+          type: ["string", "null"]
+        result:
+          $ref: "#/components/schemas/SolverResult"
+        error:
+          type: ["string", "null"]
+        config:
+          $ref: "#/components/schemas/SolverConfig"
+        instance_summary:
+          $ref: "#/components/schemas/InstanceSummary"
+      required:
+        - job_id
+        - status
+        - created_at
+
+    InstanceSummary:
+      type: object
+      properties:
+        instance_type:
+          type: string
+        n_customers:
+          type: integer
+        vehicle_capacity:
+          type: integer
+        planning_horizon:
+          type: number
+      required:
+        - instance_type
+        - n_customers
+        - vehicle_capacity
+        - planning_horizon
+
+    AlgorithmDetail:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+        steps:
+          type: array
+          items:
+            type: string
+      required:
+        - name
+        - description
+        - steps
+
+    AlgorithmsInfo:
+      type: object
+      properties:
+        tabu_search:
+          $ref: "#/components/schemas/AlgorithmDetail"
+        dynamic_programming:
+          $ref: "#/components/schemas/AlgorithmDetail"
+        neighborhood_operators:
+          type: array
+          items:
+            $ref: "#/components/schemas/AlgorithmDetail"
+      required:
+        - tabu_search
+        - dynamic_programming
+        - neighborhood_operators

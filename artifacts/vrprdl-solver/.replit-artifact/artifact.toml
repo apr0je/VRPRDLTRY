@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "VRPRDL Solver"
+version = "1.0.0"
+id = "artifacts/vrprdl-solver"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 22575
+
+[services.development]
+run = "pnpm --filter @workspace/vrprdl-solver run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/vrprdl-solver", "run", "build" ]
+publicDir = "artifacts/vrprdl-solver/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "22575"
+BASE_PATH = "/"
