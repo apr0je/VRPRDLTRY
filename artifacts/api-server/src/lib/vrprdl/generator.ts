@@ -8,8 +8,18 @@ function seededRandom(seed: number) {
   };
 }
 
+// Speed in coordinate-units per time-unit. Converts Euclidean distances into
+// travel times that are commensurate with the planning horizon (12–14 h).
+// Coordinates live in roughly [-40, 40], so a cross-grid trip is ~110 units.
+// Speed = 15 → cross-grid travel ≈ 7.3 h, leaving room to visit multiple customers.
+const VEHICLE_SPEED = 15;
+
 function euclideanDistance(p1: [number, number], p2: [number, number]): number {
-  return Math.round(Math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2) * 1000) / 1000;
+  return Math.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2);
+}
+
+function travelTime(p1: [number, number], p2: [number, number]): number {
+  return Math.round((euclideanDistance(p1, p2) / VEHICLE_SPEED) * 1000) / 1000;
 }
 
 function buildDistanceMatrix(locations: Record<string, [number, number]>): Record<string, Record<string, number>> {
@@ -17,7 +27,7 @@ function buildDistanceMatrix(locations: Record<string, [number, number]>): Recor
   for (const [locI, coordI] of Object.entries(locations)) {
     matrix[locI] = {};
     for (const [locJ, coordJ] of Object.entries(locations)) {
-      matrix[locI][locJ] = euclideanDistance(coordI, coordJ);
+      matrix[locI][locJ] = travelTime(coordI, coordJ);
     }
   }
   return matrix;
@@ -113,9 +123,11 @@ export function generateGeneralInstance(config: InstanceConfig): VrprdlInstance 
       allLocations[eveningHomeId] = homeCoord;
 
       const orderedCoords: [number, number][] = [homeCoord, ...roamingCoords, homeCoord];
+      // Use travelTime (distance / VEHICLE_SPEED) so windows are consistent with
+      // the distance matrix which also stores travel times, not raw distances.
       let travelTimes: number[] = [];
       for (let idx = 0; idx < orderedCoords.length - 1; idx++) {
-        travelTimes.push(euclideanDistance(orderedCoords[idx], orderedCoords[idx + 1]));
+        travelTimes.push(travelTime(orderedCoords[idx], orderedCoords[idx + 1]));
       }
 
       const totalTravel = travelTimes.reduce((a, b) => a + b, 0);
