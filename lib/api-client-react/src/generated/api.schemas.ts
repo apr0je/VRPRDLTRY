@@ -19,10 +19,7 @@ export const InstanceConfigInstanceType = {
 
 export interface InstanceConfig {
   instanceType: InstanceConfigInstanceType;
-  /**
-     * @minimum 5
-     * @maximum 100
-     */
+  /** @minimum 5 @maximum 100 */
   nCustomers: number;
   seed?: number;
   vehicleCapacity?: number;
@@ -36,10 +33,7 @@ export interface LocationEntry {
   type?: string;
   x: number;
   y: number;
-  /**
-     * @minItems 2
-     * @maxItems 2
-     */
+  /** @minItems 2 @maxItems 2 */
   time_window: number[];
 }
 
@@ -66,30 +60,24 @@ export interface InstanceMetadata {
   total_locations: number;
 }
 
+export type VrprdlInstanceDistanceMatrix = {[key: string]: {[key: string]: number}};
+
 export interface VrprdlInstance {
   instance_type: string;
   planning_horizon: number;
   vehicle_capacity: number;
   depot: DepotInfo;
   customers: Customer[];
+  distance_matrix: VrprdlInstanceDistanceMatrix;
   metadata: InstanceMetadata;
 }
 
 export interface SolverConfig {
-  /**
-     * @minimum 10
-     * @maximum 2000
-     */
+  /** @minimum 10 @maximum 2000 */
   maxIter: number;
-  /**
-     * @minimum 5
-     * @maximum 100
-     */
+  /** @minimum 5 @maximum 100 */
   tabuTenure: number;
-  /**
-     * @minimum 10
-     * @maximum 500
-     */
+  /** @minimum 10 @maximum 500 */
   maxNoImprove: number;
 }
 
@@ -124,7 +112,6 @@ export interface SolverResult {
 }
 
 export type SolverJobStatus = typeof SolverJobStatus[keyof typeof SolverJobStatus];
-
 
 export const SolverJobStatus = {
   pending: 'pending',
@@ -164,4 +151,3 @@ export interface AlgorithmsInfo {
   dynamic_programming: AlgorithmDetail;
   neighborhood_operators: AlgorithmDetail[];
 }
-
