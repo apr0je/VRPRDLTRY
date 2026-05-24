@@ -13,7 +13,7 @@
 
 *A full-stack academic optimization workbench implementing the Vehicle Routing Problem with Roaming Delivery Locations (VRPRDL) using Tabu Search metaheuristics and Dynamic Programming — built from scratch based on the original paper.*
 
-**Live Demo:** https://vrprdl-solver.apr0je.replit.app
+**Live Demo:** https://algorithm-showcase.replit.app/
 
 ---
 
