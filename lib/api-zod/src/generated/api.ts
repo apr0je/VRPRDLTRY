@@ -60,6 +60,7 @@ export const GenerateInstanceResponse = zod.object({
   "time_window": zod.array(zod.number()).min(generateInstanceResponseCustomersItemLocationsItemTimeWindowMin).max(generateInstanceResponseCustomersItemLocationsItemTimeWindowMax)
 }))
 })),
+  "distance_matrix": zod.record(zod.string(), zod.record(zod.string(), zod.number())),
   "metadata": zod.object({
   "seed": zod.number().optional(),
   "n_customers": zod.number(),
@@ -110,6 +111,7 @@ export const RunSolverBody = zod.object({
   "time_window": zod.array(zod.number()).min(runSolverBodyInstanceCustomersItemLocationsItemTimeWindowMin).max(runSolverBodyInstanceCustomersItemLocationsItemTimeWindowMax)
 }))
 })),
+  "distance_matrix": zod.record(zod.string(), zod.record(zod.string(), zod.number())),
   "metadata": zod.object({
   "seed": zod.number().optional(),
   "n_customers": zod.number(),
