@@ -8,6 +8,7 @@
 import type { Customer } from './customer';
 import type { DepotInfo } from './depotInfo';
 import type { InstanceMetadata } from './instanceMetadata';
+import type { VrprdlInstanceDistanceMatrix } from './vrprdlInstanceDistanceMatrix';
 
 export interface VrprdlInstance {
   instance_type: string;
@@ -15,5 +16,6 @@ export interface VrprdlInstance {
   vehicle_capacity: number;
   depot: DepotInfo;
   customers: Customer[];
+  distance_matrix: VrprdlInstanceDistanceMatrix;
   metadata: InstanceMetadata;
 }
