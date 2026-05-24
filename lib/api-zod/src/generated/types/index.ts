@@ -24,3 +24,4 @@ export * from './solverJobStatus';
 export * from './solverRequest';
 export * from './solverResult';
 export * from './vrprdlInstance';
+export * from './vrprdlInstanceDistanceMatrix';
