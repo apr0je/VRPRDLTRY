@@ -1,70 +1,98 @@
 <div align="center">
 
-  # ⭐ VRPRDL Solver
-  **Three Algorithms, One Route: Smarter Last-Mile Delivery, Optimal Decisions.**
+<img src="assets/banner.png" alt="VRPRDL Solver — cartoon sailor duck pointing at a delivery route map" width="100%" />
+
+# 🦆 VRPRDL Solver ⚓
+
+**Three Algorithms, One Route: Smarter Last-Mile Delivery, Optimal Decisions.**
+
+*Oh boy oh boy oh boy — it's an optimization workbench!*
 
 </div>
 
-[![Node.js](https://img.shields.io/badge/Node.js-24-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-[![Express](https://img.shields.io/badge/Express-5-000000?style=for-the-badge&logo=express&logoColor=white)](https://expressjs.com/)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-24-1a237e?style=for-the-badge&logo=nodedotjs&logoColor=FF8C00)](https://nodejs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.9-1a237e?style=for-the-badge&logo=typescript&logoColor=FF8C00)](https://www.typescriptlang.org/)
+[![React](https://img.shields.io/badge/React-1a237e?style=for-the-badge&logo=react&logoColor=FF8C00)](https://reactjs.org/)
+[![Express](https://img.shields.io/badge/Express-5-1a237e?style=for-the-badge&logo=express&logoColor=FF8C00)](https://expressjs.com/)
+[![Vite](https://img.shields.io/badge/Vite-1a237e?style=for-the-badge&logo=vite&logoColor=FF8C00)](https://vitejs.dev/)
 
 *A full-stack academic optimization workbench implementing the Vehicle Routing Problem with Roaming Delivery Locations (VRPRDL) using Tabu Search metaheuristics and Dynamic Programming — built from scratch based on the original paper.*
 
-**Live Demo:** https://algorithm-showcase.replit.app/
+**🌐 Live Demo:** https://vrprdl-solver.apr0je.replit.app
 
 ---
 
-## 📖 Project Overview
+## 🦆 What Is This?
 
 **VRPRDL Solver** is a complete, interactive implementation of the optimization problem introduced by Reyes, Savelsbergh & Toriello (2017) in *Transportation Research Part C, 80, 71–91*.
 
 In the VRPRDL, customers share a vehicle and can receive deliveries at any of several **roaming locations** (e.g. home, work, gym) depending on where they are at the time of delivery. The goal is to find a vehicle route that minimizes total travel cost while ensuring each customer is present at one of their roaming locations when the vehicle arrives.
 
-### ❓ Why this project exists (The Problem)
-Traditional vehicle routing assumes each customer has a single, fixed delivery address. In reality, people are mobile — they move between locations throughout the day. The VRPRDL captures this complexity: customers have time windows at multiple locations, and the solver must find both the optimal visitation sequence and the optimal delivery location-time assignment simultaneously.
+### ❓ The Problem (Blasted thing!)
+
+Traditional vehicle routing assumes each customer has a single, fixed delivery address. In reality, people are mobile — they move between locations throughout the day. The VRPRDL captures this complexity: customers have time windows at multiple locations, and the solver must find both the optimal visitation sequence **and** the optimal delivery location-time assignment simultaneously.
 
 ### 💡 The Solution
-This workbench solves the VRPRDL using the exact three-algorithm pipeline from the paper: a **Dynamic Programming** cost evaluator (Algorithm 3) that finds optimal delivery assignments for any fixed route, a **neighbourhood generator** (Algorithm 1) with three move operators (Swap, Insert, 2-opt), and a **Tabu Search** metaheuristic (Algorithm 2) that explores the solution space while avoiding cycling. The result is a near-optimal route with full delivery assignment details, convergence history, and visual maps.
+
+This workbench solves the VRPRDL using the exact three-algorithm pipeline from the paper:
+
+- A **Dynamic Programming** cost evaluator (Algorithm 3) that finds optimal delivery assignments for any fixed route
+- A **neighbourhood generator** (Algorithm 1) with three move operators (Swap, Insert, 2-opt)
+- A **Tabu Search** metaheuristic (Algorithm 2) that explores the solution space while avoiding cycling
+
+The result is a near-optimal route with full delivery assignment details, convergence history, and visual maps.
 
 ---
 
 ## ✨ Key Features
 
-- **🗺️ Instance Builder**: Generate general or realistic VRPRDL benchmark instances with configurable customer counts, roaming locations per customer, and time window parameters. Visualizes customers and roaming locations on an interactive 2D SVG map.
-- **⚡ Tabu Search Solver**: Fully configurable metaheuristic with `maxIter`, `tabuTenure`, and `maxNoImprove` controls. Returns the best route found with full delivery assignment and cost breakdown.
-- **📐 Dynamic Programming Cost Evaluator**: Algorithm 3 from the paper — given a fixed customer sequence, uses DP over a discretised time grid to find the globally optimal delivery location and time for every customer simultaneously.
-- **🔄 Three Neighbourhood Operators**: Algorithm 1 implements Swap (exchange two customers), Insert (relocate one customer), and 2-opt (reverse a subsequence) — all applied exhaustively at each Tabu Search iteration.
-- **📊 Convergence Chart**: Real-time Recharts line chart showing cost improvement across Tabu Search iterations, including best-so-far and current-solution traces.
-- **📍 Route Visualizer**: SVG map with directional arrows showing the optimal delivery route, color-coded delivery assignments, and a full tabular breakdown of customer → location → arrival time.
-- **📚 Algorithm Reference**: Academic documentation page with all 5 flowchart images from the paper and pseudocode steps for each algorithm.
-- **🔁 Job History**: In-memory job store persists all solver runs within the session, allowing comparison of different parameter configurations.
+| Feature | Description |
+|---------|-------------|
+| 🗺️ **Instance Builder** | Generate general or realistic VRPRDL benchmark instances. Visualizes customers and roaming locations on an interactive 2D SVG map. |
+| ⚡ **Tabu Search Solver** | Fully configurable with `maxIter`, `tabuTenure`, and `maxNoImprove`. Returns best route with full delivery assignment and cost breakdown. |
+| 📐 **DP Cost Evaluator** | Algorithm 3 from the paper — DP over a discretised time grid to find the globally optimal delivery location and time for every customer. |
+| 🔄 **Three Neighbourhood Operators** | Algorithm 1: Swap (exchange two customers), Insert (relocate one customer), 2-opt (reverse a subsequence). |
+| 📊 **Convergence Chart** | Recharts line chart showing cost improvement across Tabu Search iterations, including best-so-far and current-solution traces. |
+| 📍 **Route Visualizer** | SVG map with directional arrows showing the optimal delivery route, color-coded assignments, and a full tabular breakdown. |
+| 📚 **Algorithm Reference** | Academic documentation page with all 5 flowchart images from the paper and pseudocode steps for each algorithm. |
+| 🔁 **Job History** | In-memory job store persists all solver runs within the session for parameter comparison. |
+
+---
+
+## 🎨 Theme: Donald Duck Sailor Edition 🦆
+
+The UI is styled in full **Donald Duck cartoon aesthetic**:
+
+- 🟦 **Navy sailor blue** sidebar (`#1a237e`) with the VRPRDL ⚓ anchor logo
+- 🟧 **Beak orange** (`#FF8C00`) for active nav, buttons, and chart accents
+- 🔵 **Sky blue** (`#e3f2fd`) background across all pages
+- 🦆 **Duck emoji watermarks** scattered subtly across every page
+- 💬 **Comic Neue** font throughout for that bubbly cartoon handwriting feel
+- 🔲 **Chunky cartoon borders** — thick outlines with offset drop-shadows
 
 ---
 
 ## 🛠️ Tech Stack
 
-### Backend / API
+### 🔧 Backend / API
 - **Node.js 24 + TypeScript 5.9**
-- **Express 5** (High-performance async route handling)
-- **Zod** (Runtime input/output validation)
-- **Orval** (OpenAPI → React Query hooks + Zod schemas codegen)
-- **esbuild** (Fast CJS bundle output)
-- **pino** (Structured JSON logging)
+- **Express 5** — async route handling
+- **Zod** — runtime input/output validation
+- **Orval** — OpenAPI → React Query hooks + Zod schemas codegen
+- **esbuild** — fast CJS bundle output
+- **pino** — structured JSON logging
 
-### Frontend / UI
+### 🖼️ Frontend / UI
 - **React 18 + Vite**
-- **Tailwind CSS** (Utility-first styling)
-- **shadcn/ui** (Accessible component library)
-- **Recharts** (Convergence chart visualization)
-- **Wouter** (Lightweight client-side routing)
-- **TanStack Query** (Server state management via generated hooks)
+- **Tailwind CSS** — utility-first styling
+- **shadcn/ui** — accessible component library
+- **Recharts** — convergence chart visualization
+- **Wouter** — lightweight client-side routing
+- **TanStack Query** — server state via generated hooks
 
-### Workspace
-- **pnpm workspaces** (Monorepo with shared libs)
-- **OpenAPI 3.1 contract** (Source of truth for all API types)
+### 📦 Workspace
+- **pnpm workspaces** — monorepo with shared libs
+- **OpenAPI 3.1 contract** — source of truth for all API types
 
 ---
 
@@ -82,10 +110,12 @@ pnpm install
 ```
 
 ### 3. Run the application
+
 Start the API server (port 8080):
 ```bash
 pnpm --filter @workspace/api-server run dev
 ```
+
 Start the frontend in a new terminal (port 22575):
 ```bash
 pnpm --filter @workspace/vrprdl-solver run dev
@@ -101,59 +131,64 @@ pnpm --filter @workspace/api-spec run codegen
 
 ## 📁 Repository Structure
 
-The codebase is organized as a **pnpm monorepo** with three layers: shared libraries (contract + generated code), the API server (all algorithm logic), and the React frontend.
-
 ```
 VRPRDLTRY/
 │
-├── 📂 lib/                              # ◈ SHARED LIBRARIES — Contract & Generated Code
-│   ├── 📂 api-spec/
+├── 🦆 lib/                              # SHARED LIBRARIES — Contract & Generated Code
+│   ├── api-spec/
 │   │   └── openapi.yaml                 #   OpenAPI 3.1 contract (single source of truth)
-│   ├── 📂 api-client-react/
+│   ├── api-client-react/
 │   │   └── src/generated/              #   Generated React Query hooks (via Orval)
-│   └── 📂 api-zod/
+│   └── api-zod/
 │       └── src/generated/              #   Generated Zod schemas for server validation
 │
-├── 📂 artifacts/                        # ◈ DEPLOYABLE APPLICATIONS
+├── 🦆 artifacts/                        # DEPLOYABLE APPLICATIONS
 │   │
-│   ├── 📂 api-server/                   # Express 5 API Server
+│   ├── api-server/                      # Express 5 API Server
 │   │   └── src/
-│   │       ├── 📂 lib/vrprdl/           #   All algorithm implementations
-│   │       │   ├── types.ts             #     Shared TypeScript types (VrprdlInstance, etc.)
-│   │       │   ├── generator.ts         #     General & realistic instance generators
+│   │       ├── lib/vrprdl/              #   All algorithm implementations
+│   │       │   ├── types.ts             #     Shared TypeScript types
+│   │       │   ├── generator.ts         #     Instance generators
 │   │       │   ├── dp.ts                #     Algorithm 3: DP_CalculateCost
-│   │       │   ├── neighborhood.ts      #     Algorithm 1: Swap, Insert, 2-opt operators
-│   │       │   └── tabu.ts              #     Algorithm 2: Tabu Search metaheuristic
-│   │       └── 📂 routes/              #   Express route handlers
-│   │           ├── instances.ts         #     POST /api/instances/generate
-│   │           ├── solver.ts            #     POST /api/solver/run, GET /api/solver/*
-│   │           └── algorithms.ts        #     GET /api/algorithms/info
+│   │       │   ├── neighborhood.ts      #     Algorithm 1: Swap, Insert, 2-opt
+│   │       │   └── tabu.ts              #     Algorithm 2: Tabu Search
+│   │       └── routes/                  #   Express route handlers
+│   │           ├── instances.ts
+│   │           ├── solver.ts
+│   │           └── algorithms.ts
 │   │
-│   └── 📂 vrprdl-solver/               # React + Vite Frontend
+│   └── vrprdl-solver/                   # React + Vite Frontend
+│       ├── index.html                   #   Comic Neue font loaded here ⚓
 │       └── src/
+│           ├── index.css                #   Donald Duck theme tokens 🦆
 │           ├── App.tsx                  #   Router and layout
-│           ├── 📂 pages/               #   Instance Builder, Solver, Results, Algorithms
-│           └── 📂 components/          #   SVG map, convergence chart, UI widgets
+│           ├── components/
+│           │   └── layout.tsx           #   Sailor sidebar + duck watermarks 🦆
+│           └── pages/
+│               ├── instance-builder.tsx
+│               ├── solver.tsx
+│               ├── results.tsx
+│               └── algorithms.tsx
 │
-├── 📂 attached_assets/                  # Flowchart images from the paper
-├── pnpm-workspace.yaml                  # Workspace config, catalog pins
-├── tsconfig.json                        # Root TypeScript solution file
-└── README.md
+├── attached_assets/                     # Flowchart images from the paper
+├── pnpm-workspace.yaml
+├── tsconfig.json
+└── README.md                            # 🦆 You are here
 ```
 
-> **Design Principle:** All algorithm logic lives exclusively in `artifacts/api-server/src/lib/vrprdl/`. The API layer only validates inputs and calls into that library. The frontend never runs any optimization logic — it is purely a visualization and control surface.
+> **Design Principle:** All algorithm logic lives exclusively in `artifacts/api-server/src/lib/vrprdl/`. The frontend never runs any optimization logic — it is purely a visualization and control surface.
 
 ---
 
 ## 🏗️ System Architecture
 
-The solver is built on a **contract-first API architecture**. The OpenAPI spec drives all type generation, ensuring the frontend and backend are always in sync without manual type maintenance.
+The solver is built on a **contract-first API architecture**. The OpenAPI spec drives all type generation, ensuring the frontend and backend are always in sync.
 
 ### 1. Request & Solve Flow
 
 ```mermaid
 sequenceDiagram
-    participant U as User (Browser)
+    participant U as 🦆 User (Browser)
     participant F as React Frontend
     participant A as Express API Server
     participant G as Generator
@@ -183,8 +218,6 @@ sequenceDiagram
 
 ### 2. Algorithm Pipeline
 
-The three algorithms from the paper are implemented as pure TypeScript functions with no external dependencies:
-
 ```mermaid
 graph TD
     A[Fixed Customer Sequence π] --> B[Algorithm 3: DP_CalculateCost]
@@ -211,14 +244,6 @@ graph TD
     Q --> L
 ```
 
-### 3. Contract-First Codegen
-
-The OpenAPI spec at `lib/api-spec/openapi.yaml` is the single source of truth. Running `pnpm --filter @workspace/api-spec run codegen` generates:
-- **React Query hooks** in `lib/api-client-react/` — used by all frontend components
-- **Zod schemas** in `lib/api-zod/` — used by the Express server for runtime validation
-
-This eliminates an entire class of frontend/backend type-mismatch bugs.
-
 ---
 
 ## 📡 API Endpoints
@@ -233,18 +258,24 @@ This eliminates an entire class of frontend/backend type-mismatch bugs.
 
 ---
 
-## 🔮 Future Improvements / Roadmap
+## 🔮 Roadmap
 
-- [ ] **Persistent Job Storage**: Replace in-memory `Map` with a lightweight SQLite store so results survive server restarts.
-- [ ] **Multi-Vehicle Extension**: Extend the DP and Tabu Search to support fleets of vehicles (the full VRP-RDL variant).
-- [ ] **Parameter Auto-Tuning**: Add a grid-search mode that tries multiple Tabu Search configurations and returns the best-performing one.
-- [ ] **Export Results**: Allow users to download the optimal route and assignment table as CSV or JSON.
-- [ ] **Benchmark Comparison**: Add a greedy nearest-neighbour baseline so users can see the Tabu Search improvement percentage clearly.
+- [ ] **Persistent Job Storage** — Replace in-memory `Map` with SQLite so results survive server restarts
+- [ ] **Multi-Vehicle Extension** — Extend DP and Tabu Search to support vehicle fleets
+- [ ] **Parameter Auto-Tuning** — Grid-search mode that tries multiple Tabu Search configurations
+- [ ] **Export Results** — Download optimal route and assignment table as CSV or JSON
+- [ ] **Benchmark Comparison** — Add a greedy nearest-neighbour baseline to measure Tabu Search improvement
 
 ---
 
 <div align="center">
-  <p>Built for academic demonstration of combinatorial optimization metaheuristics.</p>
-  <br />
-  <p>Based on: <em>Reyes, Savelsbergh & Toriello (2017), Transportation Research Part C 80, 71–91.</em></p>
+
+🦆 🦆 🦆
+
+*Built for academic demonstration of combinatorial optimization metaheuristics.*
+
+Based on: *Reyes, Savelsbergh & Toriello (2017), Transportation Research Part C 80, 71–91.*
+
+🦆 🦆 🦆
+
 </div>
