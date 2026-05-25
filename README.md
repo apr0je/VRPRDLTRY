@@ -2,7 +2,7 @@
 
 <img src="assets/banner.png" alt="VRPRDL Solver — cartoon sailor duck pointing at a delivery route map" width="100%" />
 
-# 🦆 VRPRDL Solver ⚓
+# <img src="assets/duck-icon.png" height="40" alt="duck" /> VRPRDL Solver ⚓
 
 **Three Algorithms, One Route: Smarter Last-Mile Delivery, Optimal Decisions.**
 
@@ -22,7 +22,7 @@
 
 ---
 
-## 🦆 What Is This?
+## <img src="assets/duck-icon.png" height="28" alt="duck" /> What Is This?
 
 **VRPRDL Solver** is a complete, interactive implementation of the optimization problem introduced by Reyes, Savelsbergh & Toriello (2017) in *Transportation Research Part C, 80, 71–91*.
 
@@ -59,14 +59,14 @@ The result is a near-optimal route with full delivery assignment details, conver
 
 ---
 
-## 🎨 Theme: Donald Duck Sailor Edition 🦆
+## 🎨 Theme: Donald Duck Sailor Edition <img src="assets/duck-icon.png" height="28" alt="duck" />
 
 The UI is styled in full **Donald Duck cartoon aesthetic**:
 
 - 🟦 **Navy sailor blue** sidebar (`#1a237e`) with the VRPRDL ⚓ anchor logo
 - 🟧 **Beak orange** (`#FF8C00`) for active nav, buttons, and chart accents
 - 🔵 **Sky blue** (`#e3f2fd`) background across all pages
-- 🦆 **Duck emoji watermarks** scattered subtly across every page
+- <img src="assets/duck-icon.png" height="20" alt="duck" /> **Cartoon duck watermarks** scattered subtly across every page
 - 💬 **Comic Neue** font throughout for that bubbly cartoon handwriting feel
 - 🔲 **Chunky cartoon borders** — thick outlines with offset drop-shadows
 
@@ -134,7 +134,7 @@ pnpm --filter @workspace/api-spec run codegen
 ```
 VRPRDLTRY/
 │
-├── 🦆 lib/                              # SHARED LIBRARIES — Contract & Generated Code
+├── lib/                                 # SHARED LIBRARIES — Contract & Generated Code
 │   ├── api-spec/
 │   │   └── openapi.yaml                 #   OpenAPI 3.1 contract (single source of truth)
 │   ├── api-client-react/
@@ -142,7 +142,7 @@ VRPRDLTRY/
 │   └── api-zod/
 │       └── src/generated/              #   Generated Zod schemas for server validation
 │
-├── 🦆 artifacts/                        # DEPLOYABLE APPLICATIONS
+├── artifacts/                           # DEPLOYABLE APPLICATIONS
 │   │
 │   ├── api-server/                      # Express 5 API Server
 │   │   └── src/
@@ -158,22 +158,23 @@ VRPRDLTRY/
 │   │           └── algorithms.ts
 │   │
 │   └── vrprdl-solver/                   # React + Vite Frontend
-│       ├── index.html                   #   Comic Neue font loaded here ⚓
+│       ├── index.html                   #   Comic Neue font loaded here
 │       └── src/
-│           ├── index.css                #   Donald Duck theme tokens 🦆
+│           ├── index.css                #   Donald Duck theme tokens
 │           ├── App.tsx                  #   Router and layout
 │           ├── components/
-│           │   └── layout.tsx           #   Sailor sidebar + duck watermarks 🦆
+│           │   └── layout.tsx           #   Sailor sidebar + duck watermarks
 │           └── pages/
 │               ├── instance-builder.tsx
 │               ├── solver.tsx
 │               ├── results.tsx
 │               └── algorithms.tsx
 │
+├── assets/                              # Banner and icon images
 ├── attached_assets/                     # Flowchart images from the paper
 ├── pnpm-workspace.yaml
 ├── tsconfig.json
-└── README.md                            # 🦆 You are here
+└── README.md
 ```
 
 > **Design Principle:** All algorithm logic lives exclusively in `artifacts/api-server/src/lib/vrprdl/`. The frontend never runs any optimization logic — it is purely a visualization and control surface.
@@ -188,7 +189,7 @@ The solver is built on a **contract-first API architecture**. The OpenAPI spec d
 
 ```mermaid
 sequenceDiagram
-    participant U as 🦆 User (Browser)
+    participant U as User (Browser)
     participant F as React Frontend
     participant A as Express API Server
     participant G as Generator
@@ -270,12 +271,20 @@ graph TD
 
 <div align="center">
 
-🦆 🦆 🦆
+<img src="assets/duck-icon.png" height="60" alt="duck" />
+&nbsp;&nbsp;&nbsp;
+<img src="assets/duck-icon.png" height="60" alt="duck" />
+&nbsp;&nbsp;&nbsp;
+<img src="assets/duck-icon.png" height="60" alt="duck" />
 
 *Built for academic demonstration of combinatorial optimization metaheuristics.*
 
 Based on: *Reyes, Savelsbergh & Toriello (2017), Transportation Research Part C 80, 71–91.*
 
-🦆 🦆 🦆
+<img src="assets/duck-icon.png" height="60" alt="duck" />
+&nbsp;&nbsp;&nbsp;
+<img src="assets/duck-icon.png" height="60" alt="duck" />
+&nbsp;&nbsp;&nbsp;
+<img src="assets/duck-icon.png" height="60" alt="duck" />
 
 </div>
