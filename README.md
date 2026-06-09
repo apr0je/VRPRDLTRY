@@ -57,20 +57,6 @@ The result is a near-optimal route with full delivery assignment details, conver
 | 📚 **Algorithm Reference** | Academic documentation page with all 5 flowchart images from the paper and pseudocode steps for each algorithm. |
 | 🔁 **Job History** | In-memory job store persists all solver runs within the session for parameter comparison. |
 
----
-
-## 🎨 Theme: Donald Duck Sailor Edition <img src="assets/duck-icon.png" height="28" alt="duck" />
-
-The UI is styled in full **Donald Duck cartoon aesthetic**:
-
-- 🟦 **Navy sailor blue** sidebar (`#1a237e`) with the VRPRDL ⚓ anchor logo
-- 🟧 **Beak orange** (`#FF8C00`) for active nav, buttons, and chart accents
-- 🔵 **Sky blue** (`#e3f2fd`) background across all pages
-- <img src="assets/duck-icon.png" height="20" alt="duck" /> **Cartoon duck watermarks** scattered subtly across every page
-- 💬 **Comic Neue** font throughout for that bubbly cartoon handwriting feel
-- 🔲 **Chunky cartoon borders** — thick outlines with offset drop-shadows
-
----
 
 ## 🛠️ Tech Stack
 
